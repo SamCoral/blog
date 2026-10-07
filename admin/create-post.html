@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create / Edit Article - TechPulse</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Ambient Lighting Background Orbs -->
+    <div class="background-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <!-- Admin Navbar -->
+    <header class="navbar admin-navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">Tech<span>Pulse</span> Admin</a>
+            <div class="nav-actions">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">🌙</button>
+                <a href="dashboard.html" class="btn btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container admin-main">
+        <div class="dashboard-header">
+            <div>
+                <h1 id="editorPageTitle">Create New Article</h1>
+                <p>Fill in the details below to publish or update an article on TechPulse.</p>
+            </div>
+        </div>
+
+        <form id="postForm" class="editor-form glass-card">
+            <!-- Hidden input to store editing post ID -->
+            <input type="hidden" id="postId" value="">
+
+            <div class="form-group">
+                <label for="postTitle">Article Title <span class="required">*</span></label>
+                <input type="text" id="postTitle" required placeholder="e.g., Getting Started with Modern JavaScript">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postCategory">Category <span class="required">*</span></label>
+                    <select id="postCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="AI">AI</option>
+                        <option value="Education">Education</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="postAuthor">Author Name <span class="required">*</span></label>
+                    <input type="text" id="postAuthor" required placeholder="e.g., Sam Coral">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="postImage">Featured Image URL <span class="required">*</span></label>
+                <input type="url" id="postImage" required placeholder="https://images.unsplash.com/photo-...">
+                <div id="imagePreview" class="image-preview-container hidden">
+                    <img id="previewImg" src="" alt="Featured image preview">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="postDescription">Short Description (Summary) <span class="required">*</span></label>
+                <textarea id="postDescription" rows="3" required placeholder="Brief summary for cards and search results..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">Article Body Content <span class="required">*</span></label>
+                <textarea id="postContent" rows="12" required placeholder="Full body content of the article..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="postTags">Tags (Comma Separated)</label>
+                <input type="text" id="postTags" placeholder="e.g., JavaScript, WebDev, Beginners">
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="saveDraftBtn" class="btn btn-outline">Save Draft</button>
+                <button type="submit" id="publishBtn" class="btn btn-primary">Publish Post</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Toast Container for Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

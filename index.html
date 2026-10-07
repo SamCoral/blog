@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPulse - Technology & Programming Blog</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Tech<span>Pulse</span></a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin/login.html" class="admin-link">Admin Portal</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Dark Mode">🌙</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Welcome to TechPulse</h1>
+                <p>Ideas, stories, tutorials, and insights about technology, programming, and web development.</p>
+                <a href="blog.html" class="btn btn-primary">Explore Articles</a>
+            </div>
+        </section>
+
+        <!-- Featured Post Section -->
+        <section class="container section">
+            <h2 class="section-title">Featured Article</h2>
+            <div id="featuredPostContainer">
+                <!-- Loaded dynamically by main.js -->
+            </div>
+        </section>
+
+        <!-- Latest Posts Section -->
+        <section class="container section">
+            <h2 class="section-title">Latest Articles</h2>
+            <div class="posts-grid" id="latestPostsGrid">
+                <!-- Loaded dynamically by main.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>TechPulse</h3>
+                <p>Your daily portal for tech, code, and modern software engineering.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-admin">
+                <h4>Management</h4>
+                <a href="admin/login.html">Admin Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TechPulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

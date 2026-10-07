@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Reader - TechPulse</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+
+    <!-- Scroll Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Tech<span>Pulse</span></a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin/login.html" class="admin-link">Admin Portal</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Dark Mode">🌙</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Article Body -->
+    <main class="container article-container">
+        <article id="articleContent">
+            <!-- Loaded dynamically by article.js -->
+        </article>
+
+        <!-- Article Actions & Reactions -->
+        <section class="article-actions">
+            <button id="bookmarkBtn" class="btn btn-outline">🔖 Save Article</button>
+
+            <div class="reactions-box">
+                <span class="reactions-title">Reactions:</span>
+                <button class="reaction-btn" data-reaction="like">👍 <span id="likeCount">0</span></button>
+                <button class="reaction-btn" data-reaction="love">❤️ <span id="loveCount">0</span></button>
+                <button class="reaction-btn" data-reaction="amazing">🔥 <span id="amazingCount">0</span></button>
+                <button class="reaction-btn" data-reaction="helpful">👏 <span id="helpfulCount">0</span></button>
+            </div>
+        </section>
+
+        <!-- Comments Section -->
+        <section class="comments-section">
+            <h3 id="commentsHeader">Comments (0)</h3>
+
+            <!-- Comment Form -->
+            <form id="commentForm" class="comment-form">
+                <h4>Leave a Comment</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="commentName">Name</label>
+                        <input type="text" id="commentName" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentEmail">Email</label>
+                        <input type="email" id="commentEmail" required placeholder="Your email address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="commentText">Comment</label>
+                    <textarea id="commentText" rows="4" required placeholder="Write your thoughts..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+
+            <!-- Comments Thread Display -->
+            <div id="commentsList" class="comments-list">
+                <!-- Rendered dynamically by comments.js -->
+            </div>
+        </section>
+
+        <!-- Related Posts Section -->
+        <section class="related-posts">
+            <h3 class="section-title">Related Articles</h3>
+            <div class="posts-grid" id="relatedPostsGrid">
+                <!-- Rendered dynamically by article.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>TechPulse</h3>
+                <p>Your daily portal for tech, code, and modern software engineering.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-admin">
+                <h4>Management</h4>
+                <a href="admin/login.html">Admin Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TechPulse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/comments.js"></script>
+    <script src="js/article.js"></script>
+</body>
+</html>
