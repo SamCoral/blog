@@ -15,10 +15,14 @@ A simple static blog and admin dashboard demo built with HTML, CSS, and JavaScri
 From the project root:
 
 ```bash
-python3 -m http.server 8000
+npm start
 ```
 
-Then open http://localhost:8000
+Then open http://localhost:8000. You can override the port with:
+
+```bash
+PORT=3000 npm start
+```
 
 ## Notes
 

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
+    
     <header class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">Tech<span>Pulse</span></a>
@@ -19,7 +19,6 @@
                 <a href="blog.html">Blog</a>
                 <a href="about.html">About</a>
                 <a href="contact.html" class="active">Contact</a>
-                <a href="admin/login.html" class="admin-link">Admin Portal</a>
             </nav>
 
             <div class="nav-actions">
@@ -33,7 +32,7 @@
         </div>
     </header>
 
-    <!-- Contact Form Section -->
+    
     <main class="container section">
         <div class="page-header">
             <h1>Get in Touch</h1>
@@ -63,7 +62,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
             <div class="footer-brand">
@@ -77,11 +75,7 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
-            <div class="footer-admin">
-                <h4>Management</h4>
-                <a href="admin/login.html">Admin Login</a>
-            </div>
-        </div>
+            
         <div class="footer-bottom">
             <p>&copy; 2026 TechPulse. All rights reserved.</p>
         </div>
@@ -92,7 +86,6 @@
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Simple client-side form submission handler for demonstration
         document.getElementById('contactForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             showToast('Thank you! Your message has been sent successfully.', 'success');
