@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = usernameInput.value.trim().toLowerCase();
             const password = passwordInput.value;
 
-            if (username === 'admin' && password === 'admin123') {
+            if (username === 'samson' && password === 'samsonan77@gmail.com') {
                 sessionStorage.setItem('techpulseAdmin', 'true');
                 showToast('Welcome back! Opening dashboard.', 'success');
                 window.location.href = 'dashboard.html';
