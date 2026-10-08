@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Article Detail View, Reading Progress & Reactions
-   ========================================================================== */
-
 let currentArticleId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -23,11 +19,9 @@ function initArticlePage() {
         return;
     }
 
-    // Calculate reading time (approx. 200 words per minute)
     const wordCount = article.content.split(/\s+/).length;
     const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-    // Render main article body
     const articleContainer = document.getElementById("articleContent");
     articleContainer.innerHTML = `
         <header class="article-header">
@@ -48,14 +42,12 @@ function initArticlePage() {
         </div>
     `;
 
-    // Initialize bookmark state & reaction buttons
     initBookmarkButton();
     updateReactionDisplay();
     bindReactionHandlers();
     renderRelatedPosts(article);
 }
 
-// Reading progress bar calculator
 function initReadingProgressBar() {
     const progressBar = document.getElementById("progressBar");
     if (!progressBar) return;
@@ -67,7 +59,6 @@ function initReadingProgressBar() {
     });
 }
 
-// Bookmark toggling
 function initBookmarkButton() {
     const btn = document.getElementById("bookmarkBtn");
     if (!btn) return;
@@ -97,7 +88,7 @@ function initBookmarkButton() {
     });
 }
 
-// Reaction handlers with browser-level vote lock
+
 function updateReactionDisplay() {
     const allReactions = getReactions();
     const articleReactions = allReactions[currentArticleId] || { like: 0, love: 0, amazing: 0, helpful: 0 };
@@ -135,7 +126,6 @@ function bindReactionHandlers() {
     });
 }
 
-// Related Posts loader based on category matching
 function renderRelatedPosts(currentArticle) {
     const grid = document.getElementById("relatedPostsGrid");
     if (!grid) return;

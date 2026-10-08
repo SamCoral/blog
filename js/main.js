@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Main Application & Utility Module
-   ========================================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
     const isAdminPage = document.body.classList.contains("admin-body") || window.location.pathname.includes("/admin/");
 
@@ -11,13 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initMobileNav();
     
-    // Load Homepage post listings if containers exist on current page
+
     if (document.getElementById("featuredPostContainer")) {
         renderHomepageContent();
     }
 });
 
-// Toast notification display helper
 function showToast(message, type = "info") {
     const container = document.getElementById("toastContainer");
     if (!container) return;
@@ -38,7 +33,6 @@ function showToast(message, type = "info") {
     }, 3000);
 }
 
-// Dark / Light Theme logic
 function initTheme() {
     const savedTheme = localStorage.getItem("theme") || "light";
     if (savedTheme === "dark") {
@@ -65,7 +59,6 @@ function initTheme() {
     }
 }
 
-// Mobile responsive navigation menu toggle
 function initMobileNav() {
     const hamburger = document.getElementById("hamburger");
     const navLinks = document.getElementById("navLinks");
@@ -78,7 +71,6 @@ function initMobileNav() {
     }
 }
 
-// Home Page dynamic rendering
 function renderHomepageContent() {
     const posts = getPosts().filter(p => p.status === "published");
     const featuredContainer = document.getElementById("featuredPostContainer");
@@ -89,7 +81,6 @@ function renderHomepageContent() {
         return;
     }
 
-    // Render Featured Post (most recent article)
     const featured = posts[posts.length - 1];
     if (featuredContainer) {
         featuredContainer.innerHTML = `
@@ -108,14 +99,12 @@ function renderHomepageContent() {
         `;
     }
 
-    // Render Latest Posts Grid
     if (latestGrid) {
         const latest = posts.slice(0, 6).reverse();
         latestGrid.innerHTML = latest.map(post => createPostCardHTML(post)).join("");
     }
 }
 
-// Reusable Post Card HTML Generator
 function createPostCardHTML(post) {
     const comments = getComments().filter(c => c.postId === post.id);
     const reactions = getReactions()[post.id] || { like: 0, love: 0, amazing: 0, helpful: 0 };

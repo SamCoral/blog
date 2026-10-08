@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ----------------------------------------------------------------------
-    // 1. Theme Toggle Logic (Light / Dark Mode)
-    // ----------------------------------------------------------------------
-    const themeToggleBtn = document.getElementById('themeToggle');
+   const themeToggleBtn = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -38,9 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initAdminLogin();
     }
 
-    // ----------------------------------------------------------------------
-    // 2. Editor Form Elements & URL Params Initialization
-    // ----------------------------------------------------------------------
+
     const postForm = document.getElementById('postForm');
     const pageTitle = document.getElementById('editorPageTitle');
     const postIdInput = document.getElementById('postId');
@@ -55,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsInput = document.getElementById('postTags');
     const saveDraftBtn = document.getElementById('saveDraftBtn');
 
-    // Check if we are editing an existing article via URL ?id=XXX
     const urlParams = new URLSearchParams(window.location.search);
     const editingId = urlParams.get('id');
 
@@ -63,9 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadArticleForEditing(editingId);
     }
 
-    // ----------------------------------------------------------------------
-    // 3. Featured Image Live Preview
-    // ----------------------------------------------------------------------
     imageInput?.addEventListener('input', () => {
         const url = imageInput.value.trim();
         if (url) {
@@ -80,15 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreview.classList.add('hidden');
     });
 
-    // ----------------------------------------------------------------------
-    // 4. Form Submission (Publish)
-    // ----------------------------------------------------------------------
     postForm?.addEventListener('submit', (e) => {
         e.preventDefault();
         saveArticle('Published');
     });
 
-    // Save Draft
     saveDraftBtn?.addEventListener('click', () => {
         if (!titleInput.value.trim()) {
             showToast('Please enter an article title to save as draft.', 'error');
@@ -98,9 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveArticle('Draft');
     });
 
-    // ----------------------------------------------------------------------
-    // 5. Functions: Save & Load Articles
-    // ----------------------------------------------------------------------
     function saveArticle(status) {
         const posts = getPosts();
         const existingId = postIdInput.value ? Number(postIdInput.value) : null;
@@ -130,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         savePosts(posts);
         showToast(`Article successfully ${status === 'Draft' ? 'saved as draft' : 'published'}!`, 'success');
 
-        // Redirect back to dashboard after 1.2 seconds
         setTimeout(() => {
             window.location.href = 'dashboard.html';
         }, 1200);
@@ -161,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Toast Notification helper
     function showToast(message, type = 'success') {
         const container = document.getElementById('toastContainer');
         if (!container) return;

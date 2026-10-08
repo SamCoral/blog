@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Blog Catalog, Filter & Search Module
-   ========================================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("blogPostsGrid")) {
         initBlogPage();
@@ -14,7 +10,7 @@ let searchQuery = "";
 function initBlogPage() {
     renderFilteredPosts();
 
-    // Category button click handlers
+
     const categoryContainer = document.getElementById("categoryButtons");
     if (categoryContainer) {
         categoryContainer.addEventListener("click", (e) => {
@@ -27,7 +23,6 @@ function initBlogPage() {
         });
     }
 
-    // Live search input handler
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
@@ -43,12 +38,10 @@ function renderFilteredPosts() {
 
     let posts = getPosts().filter(p => p.status === "published");
 
-    // Filter by category
     if (currentCategory !== "All") {
         posts = posts.filter(p => p.category === currentCategory);
     }
 
-    // Filter by search query
     if (searchQuery) {
         posts = posts.filter(p => {
             const inTitle = p.title.toLowerCase().includes(searchQuery);

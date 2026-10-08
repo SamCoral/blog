@@ -1,8 +1,3 @@
-/* ==========================================================================
-   Data & LocalStorage Initialization Module
-   ========================================================================== */
-
-// Default sample articles loaded if LocalStorage is empty
 const INITIAL_POSTS = [
     {
         id: 1,
@@ -78,7 +73,6 @@ const INITIAL_POSTS = [
     }
 ];
 
-// Helper functions for LocalStorage management
 function getPosts() {
     const posts = localStorage.getItem("blogPosts");
     if (posts) {
@@ -90,7 +84,6 @@ function getPosts() {
         }
     }
 
-    // Migrate posts previously saved by the admin editor to the shared key.
     const legacyPosts = localStorage.getItem("techpulse_posts");
     if (legacyPosts) {
         try {
@@ -132,12 +125,12 @@ function saveComments(comments) {
 
 function getReactions() {
     return JSON.parse(localStorage.getItem("blogReactions")) || {
-        1: { like: 12, love: 5, amazing: 3, helpful: 8 },
-        2: { like: 8, love: 2, amazing: 4, helpful: 6 },
-        3: { like: 15, love: 9, amazing: 7, helpful: 11 },
-        4: { like: 6, love: 4, amazing: 1, helpful: 3 },
-        5: { like: 10, love: 3, amazing: 2, helpful: 5 },
-        6: { like: 20, love: 14, amazing: 18, helpful: 9 }
+        1: { like: 0, love: 0, amazing: 0, helpful: 0 },
+        2: { like: 0, love: 0, amazing: 0, helpful: 0 },
+        3: { like: 0, love: 0, amazing: 0, helpful: 0 },
+        4: { like: 0, love: 0, amazing: 0, helpful: 0 },
+        5: { like: 0, love: 0, amazing: 0, helpful: 0 },
+        6: { like: 0, love: 0, amazing: 0, helpful: 0 }
     };
 }
 

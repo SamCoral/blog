@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Comments & Nesting Reply Module
-   ========================================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("commentsList")) {
         initComments();
