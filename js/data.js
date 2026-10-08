@@ -81,11 +81,31 @@ const INITIAL_POSTS = [
 // Helper functions for LocalStorage management
 function getPosts() {
     const posts = localStorage.getItem("blogPosts");
-    if (!posts) {
-        localStorage.setItem("blogPosts", JSON.stringify(INITIAL_POSTS));
-        return INITIAL_POSTS;
+    if (posts) {
+        try {
+            const parsedPosts = JSON.parse(posts);
+            if (Array.isArray(parsedPosts)) return parsedPosts;
+        } catch (error) {
+            console.warn("Saved posts could not be parsed; using defaults.", error);
+        }
     }
-    return JSON.parse(posts);
+
+    // Migrate posts previously saved by the admin editor to the shared key.
+    const legacyPosts = localStorage.getItem("techpulse_posts");
+    if (legacyPosts) {
+        try {
+            const parsedLegacyPosts = JSON.parse(legacyPosts);
+            if (Array.isArray(parsedLegacyPosts)) {
+                savePosts(parsedLegacyPosts);
+                return parsedLegacyPosts;
+            }
+        } catch (error) {
+            console.warn("Legacy posts could not be parsed; using defaults.", error);
+        }
+    }
+
+    savePosts(INITIAL_POSTS);
+    return INITIAL_POSTS;
 }
 
 function savePosts(posts) {

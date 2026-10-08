@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const currentPath = window.location.pathname;
+    if (currentPath.endsWith('/admin/dashboard.html')) {
+        initAdminDashboard();
+    } else if (currentPath.endsWith('/admin/login.html')) {
+        initAdminLogin();
+    }
+
     // ----------------------------------------------------------------------
     // 2. Editor Form Elements & URL Params Initialization
     // ----------------------------------------------------------------------
@@ -95,8 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Functions: Save & Load Articles
     // ----------------------------------------------------------------------
     function saveArticle(status) {
-        const posts = JSON.parse(localStorage.getItem('techpulse_posts') || '[]');
-        const id = postIdInput.value || 'post_' + Date.now();
+        const posts = getPosts();
+        const existingId = postIdInput.value ? Number(postIdInput.value) : null;
+        const id = Number.isFinite(existingId) ? existingId : Date.now();
 
         const postData = {
             id: id,
@@ -119,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             posts.unshift(postData);
         }
 
-        localStorage.setItem('techpulse_posts', JSON.stringify(posts));
+        savePosts(posts);
         showToast(`Article successfully ${status === 'Draft' ? 'saved as draft' : 'published'}!`, 'success');
 
         // Redirect back to dashboard after 1.2 seconds
@@ -129,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadArticleForEditing(id) {
-        const posts = JSON.parse(localStorage.getItem('techpulse_posts') || '[]');
-        const post = posts.find(p => p.id === id);
+        const posts = getPosts();
+        const post = posts.find(p => String(p.id) === String(id));
 
         if (!post) {
             showToast('Article not found!', 'error');
@@ -167,5 +175,105 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             toast.remove();
         }, 3000);
+    }
+
+    function initAdminLogin() {
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        if (sessionStorage.getItem('techpulseAdmin') === 'true') {
+            window.location.href = 'dashboard.html';
+            return;
+        }
+
+        loginForm?.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
+
+            if (username === 'admin' && password === 'admin123') {
+                sessionStorage.setItem('techpulseAdmin', 'true');
+                showToast('Welcome back! Opening dashboard.', 'success');
+                window.location.href = 'dashboard.html';
+            } else {
+                showToast('Incorrect username or password.', 'error');
+            }
+        });
+    }
+
+    function initAdminDashboard() {
+        if (sessionStorage.getItem('techpulseAdmin') !== 'true') {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const logoutButton = document.getElementById('logoutBtn');
+        logoutButton?.addEventListener('click', () => {
+            sessionStorage.removeItem('techpulseAdmin');
+            window.location.href = 'login.html';
+        });
+
+        renderAdminDashboard();
+    }
+
+    function renderAdminDashboard() {
+        const posts = getPosts();
+        const comments = getComments();
+        const reactions = getReactions();
+        const allReactionCounts = Object.values(reactions).reduce((total, postReactions) => {
+            return total + Object.values(postReactions).reduce((sum, count) => sum + Number(count || 0), 0);
+        }, 0);
+
+        document.getElementById('statTotalPosts').textContent = posts.length;
+        document.getElementById('statPublishedPosts').textContent = posts.filter(post => post.status === 'published').length;
+        document.getElementById('statDraftPosts').textContent = posts.filter(post => post.status === 'draft').length;
+        document.getElementById('statTotalComments').textContent = comments.length;
+        document.getElementById('statTotalReactions').textContent = allReactionCounts;
+
+        const table = document.getElementById('adminPostsTable');
+        table.innerHTML = posts.map(post => {
+            const postComments = comments.filter(comment => Number(comment.postId) === Number(post.id)).length;
+            const postReactions = reactions[String(post.id)] || {};
+            const reactionCount = Object.values(postReactions).reduce((sum, count) => sum + Number(count || 0), 0);
+            const statusClass = post.status === 'draft' ? 'draft' : 'published';
+
+            return `
+                <tr>
+                    <td><strong>${escapeHTML(post.title)}</strong></td>
+                    <td>${escapeHTML(post.category || 'Uncategorized')}</td>
+                    <td>${escapeHTML(post.date || '—')}</td>
+                    <td><span class="badge badge-${statusClass}">${escapeHTML(post.status || 'draft')}</span></td>
+                    <td>${postComments}</td>
+                    <td>${reactionCount}</td>
+                    <td>
+                        <a href="create-post.html?id=${encodeURIComponent(post.id)}" class="action-btn">Edit</a>
+                        <button class="action-btn delete-btn" type="button" data-delete-id="${encodeURIComponent(post.id)}">Delete</button>
+                    </td>
+                </tr>`;
+        }).join('');
+
+        table.addEventListener('click', (event) => {
+            const deleteButton = event.target.closest('[data-delete-id]');
+            if (!deleteButton) return;
+
+            const postId = deleteButton.dataset.deleteId;
+            const post = posts.find(item => String(item.id) === postId);
+            if (!post || !window.confirm(`Delete “${post.title}”? This cannot be undone.`)) return;
+
+            const nextPosts = posts.filter(item => String(item.id) !== postId);
+            savePosts(nextPosts);
+            renderAdminDashboard();
+            showToast('Article deleted.', 'success');
+        });
+    }
+
+    function escapeHTML(value) {
+        return String(value || '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
     }
 });
